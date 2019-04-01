@@ -216,9 +216,9 @@ input_img = Input(shape=(222,))
  
 
 
-encoded = Dense(128, activation = 'relu')(input_img)
-encoded = Dense(64, activation = 'relu')(encoded)
-encoded = Dense(2, activation = 'relu')(encoded)
+encoded = Dense(128, activation = 'linear')(input_img)
+encoded = Dense(64, activation = 'tanh')(encoded)
+encoded = Dense(2, activation = 'tanh')(encoded)
 
 # #encoded = Dense(128)(input_img)
 # #LR = LeakyReLU(alpha=0.1)(encoded)
@@ -231,9 +231,9 @@ encoded = Dense(2, activation = 'relu')(encoded)
 
 # Decoder Layers
 # Decoder Layers
-decoded = Dense(64, activation = 'relu')(encoded)
-decoded = Dense(128, activation = 'relu')(decoded)
-decoded = Dense(222, activation = 'sigmoid')(decoded)
+decoded = Dense(64, activation = 'tanh')(encoded)
+decoded = Dense(128, activation = 'tanh')(decoded)
+decoded = Dense(222, activation = 'linear')(decoded)
 
 # #decoded = Dense(64)(encoded)
 # #LR = LeakyReLU(alpha=0.1)(decoded)
@@ -311,11 +311,12 @@ encoded_data = encoder.predict(test_x)
 print(encoded_data.shape)
 print(encoded_data)
 
-decoded_data = decoder.predict(encoded_data)
-print(decoded_data.shape)
-print(decoded_data-test_x)
+# decoded_data = decoder.predict(encoded_data)
+# print(decoded_data.shape)
+# print(decoded_data-test_x)
 
-
+auto_data=autoencoder.predict(test_x)
+print(auto_data.shape)
 # with open('Version2decodedData.txt', 'w') as f:
 	# np.savetxt(f, decoded_data, delimiter = ' ', fmt='%1.8f')
 
