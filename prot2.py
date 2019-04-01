@@ -219,6 +219,8 @@ input_img = Input(shape=(222,))
 encoded = Dense(128, activation = 'linear')(input_img)
 encoded = Dense(64, activation = 'tanh')(encoded)
 encoded = Dense(2, activation = 'tanh')(encoded)
+encoded = Dense(64, activation = 'softplus')(encoded)
+encoded = Dense(2, activation = 'softplus')(encoded)
 
 # #encoded = Dense(128)(input_img)
 # #LR = LeakyReLU(alpha=0.1)(encoded)
@@ -231,8 +233,8 @@ encoded = Dense(2, activation = 'tanh')(encoded)
 
 # Decoder Layers
 # Decoder Layers
-decoded = Dense(64, activation = 'tanh')(encoded)
-decoded = Dense(128, activation = 'tanh')(decoded)
+decoded = Dense(64, activation = 'softplus')(encoded)
+decoded = Dense(128, activation = 'softplus')(decoded)
 decoded = Dense(222, activation = 'linear')(decoded)
 
 # #decoded = Dense(64)(encoded)
@@ -269,7 +271,7 @@ print(autoencoder.summary())
 
 history = autoencoder.fit(train_x, train_x,
                 epochs=2000,
-                batch_size=20,
+                batch_size=64,
                 shuffle=True,
                 validation_split=0.1,
                 verbose = 0)
@@ -317,6 +319,7 @@ print(encoded_data)
 
 auto_data=autoencoder.predict(test_x)
 print(auto_data.shape)
+print(test_x-auto_data)
 # with open('Version2decodedData.txt', 'w') as f:
 	# np.savetxt(f, decoded_data, delimiter = ' ', fmt='%1.8f')
 
