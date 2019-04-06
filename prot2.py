@@ -217,8 +217,6 @@ input_img = Input(shape=(222,))
 
 
 encoded = Dense(128, activation = 'linear')(input_img)
-encoded = Dense(64, activation = 'tanh')(encoded)
-encoded = Dense(2, activation = 'tanh')(encoded)
 encoded = Dense(64, activation = 'softplus')(encoded)
 encoded = Dense(2, activation = 'softplus')(encoded)
 
