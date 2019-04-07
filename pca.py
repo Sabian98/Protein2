@@ -62,7 +62,7 @@ def align(coordinate_file):
 
 
 
-def center(aligned_dict):
+def center(data):
 	'''
 	input: a dictionary where each value is a model in the form of a flattened array, and each array contains the coordinates of the atoms of that model.
 
@@ -73,10 +73,6 @@ def center(aligned_dict):
 	returns: the centered array, i.e., the result of the above method
 	'''
 
-	biglist = []
-	for key, val in aligned_dict.items():
-		biglist.append(val)
-	data = np.array(biglist)
 	data = data.T
 	mean = data.mean(axis=1).reshape(-1, 1)
 	data = data - data.mean(axis=1).reshape(-1, 1)
